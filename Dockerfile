@@ -1,13 +1,14 @@
 FROM node:13-alpine
 
+ARG extra=true
+
 RUN apk update && \
-  apk add bash && \
-  yarn global add @stoplight/spectral
+  apk add bash
 
 COPY . .
 
 RUN npm install && \
   npm run build && \
-  npm test
+  ${extra}
 
 ENTRYPOINT ["./entrypoint.js"]

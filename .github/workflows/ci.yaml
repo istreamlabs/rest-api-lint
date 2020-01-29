@@ -7,4 +7,4 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Build
-        run: docker build -t rest-api-lint .
+        run: docker build --build-arg extra='npm test' -t rest-api-lint .

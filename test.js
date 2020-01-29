@@ -1,6 +1,8 @@
 const { execSync } = require('child_process');
 const fs = require('fs');
 
+process.env.FAIL_ON_WARNINGS = '1';
+
 describe('Linting fixture files', () => {
   fs.readdirSync('fixtures/lint').forEach(filename => {
     const expect = filename.endsWith('-fail.yaml') ? 'fail' : 'pass';
@@ -9,7 +11,7 @@ describe('Linting fixture files', () => {
       let failed = false;
       let out = null;
       try {
-        out = execSync(`spectral lint -F warn fixtures/lint/${filename}`, {
+        out = execSync(`./entrypoint.js fixtures/lint/${filename}`, {
           stdio: 'pipe',
           encoding: 'utf8'
         });
@@ -17,6 +19,7 @@ describe('Linting fixture files', () => {
         failed = true;
         if (expect === 'pass') {
           if (out) console.log(out.stdout, out.stderr);
+          else console.log(err);
           throw new Error('Linting failed when it should pass');
         }
       }

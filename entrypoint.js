@@ -38,6 +38,11 @@ if (fs.existsSync(SPECTRAL_CONFIG)) {
 }
 
 // Run the thing!
+let failLimit = 0;
+if (process.env.FAIL_ON_WARNINGS) {
+  failLimit = 1;
+}
+
 const doc = fs.readFileSync(filename, 'utf8');
 
 const spectral = new Spectral();
@@ -50,7 +55,7 @@ spectral
     let errors = 0;
 
     for (let r of results) {
-      if (r.severity === 0) {
+      if (r.severity <= failLimit) {
         errors++;
       }
 
