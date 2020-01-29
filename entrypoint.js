@@ -63,11 +63,11 @@ spectral
       }
 
       // If we are running in GitHub, output metadata to nicely annotate the UI.
+      // https://help.github.com/en/actions/automating-your-workflow-with-github-actions/development-tools-for-github-actions#set-an-error-message-error
       if (process.env.GITHUB_ACTIONS) {
         console.log(
-          `::${SEV_MAP[r.severity]} file=${r.source},line=${
-            r.range.start.line
-          },col=${r.range.start.character}::${r.message}`
+          `::${SEV_MAP[r.severity]} file=${r.source},line=${r.range.start.line +
+            1},col=${r.range.start.character}::${r.message}`
         );
       }
     }
