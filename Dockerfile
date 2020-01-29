@@ -3,6 +3,8 @@ FROM node:13-alpine
 ARG extra=true
 WORKDIR /action
 
+ENV ISP_RULES_PREFIX=/action/
+
 RUN apk update && \
   apk add bash
 

@@ -8,6 +8,7 @@ const { Spectral, isOpenApiv3 } = require('@stoplight/spectral');
 const { stylish } = require('@stoplight/spectral/dist/formatters/stylish');
 
 const SPECTRAL_CONFIG = '.spectral.yaml';
+const ISP_RULES_PREFIX = process.env.ISP_RULES_PREFIX || '';
 
 // Mapping of Spectral severity to GitHub Actions message level
 const SEV_MAP = ['error', 'warning', 'debug', 'debug'];
@@ -18,6 +19,8 @@ if (process.argv.length >= 3) {
   filename = process.argv[2];
 }
 
+const ISP_RULES_PATH = `${ISP_RULES_PREFIX}isp-rules.yaml`;
+
 // Make sure Spectral's config is set up properly to point to our custom rules.
 if (fs.existsSync(SPECTRAL_CONFIG)) {
   // Modify existing file.
@@ -27,14 +30,14 @@ if (fs.existsSync(SPECTRAL_CONFIG)) {
     doc.extends = [];
   }
 
-  if (!doc.extends.includes('./isp-rules.yaml')) {
-    doc.extends.push('./isp-rules.yaml');
+  if (!doc.extends.includes(ISP_RULES_PATH)) {
+    doc.extends.push(ISP_RULES_PATH);
   }
 
   fs.writeFileSync(SPECTRAL_CONFIG, yaml.dump(doc));
 } else {
   // Create dummy file.
-  fs.writeFileSync(SPECTRAL_CONFIG, 'extends:\n  - ./isp-rules.yaml\n');
+  fs.writeFileSync(SPECTRAL_CONFIG, `extends:\n  - ${ISP_RULES_PATH}\n`);
 }
 
 // Run the thing!
