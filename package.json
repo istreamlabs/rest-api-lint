@@ -1,0 +1,20 @@
+{
+  "name": "isp-functions",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "build": "browserify -s english -o isp-functions/english.js isp-functions/english-deps.js",
+    "test": "mocha --timeout=5000"
+  },
+  "author": "Daniel G. Taylor <dtaylor@istreamplanet.com",
+  "license": "Apache2",
+  "dependencies": {
+    "@stoplight/spectral": "^5.0.0",
+    "browserify": "^16.5.0",
+    "js-yaml": "^3.13.1",
+    "mocha": "^7.0.1",
+    "write-good": "^1.0.2"
+  }
+}

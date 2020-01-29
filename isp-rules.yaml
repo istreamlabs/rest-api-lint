@@ -1,0 +1,90 @@
+formats:
+  - 'oas3'
+extends: spectral:oas
+functionsDir: isp-functions
+functions:
+  - contains
+  - english
+  - iso8601
+rules:
+  # English recommendations for description fields
+  english:
+    severity: warn
+    message: '{{error}}'
+    given: $..description
+    then:
+      function: english
+  # Use JSON as much as possible
+  json-responses:
+    severity: error
+    description: Responses must be JSON
+    message: '{{description}}: {{error}}'
+    given: $..responses.[?(@property == '200' || @ == '201' || @ == '202' || @ == '400' || @ == '401' || @ == '403' || @ == '404' || @ == '422' || @ == '500')].content
+    then:
+      function: contains
+      functionOptions:
+        match: 'json'
+  patch-request-content-type:
+    severity: error
+    description: '`PATCH` requests cannot use `application/json`'
+    given: $.paths.*.[?(@property == 'patch')].requestBody.content[?(@property == 'application/json')]^
+    then:
+      function: falsy
+  patch-prefer-merge:
+    severity: warn
+    description: Prefer `application/merge-patch+json` for `PATCH` requests
+    given: $.paths.*.[?(@property == 'patch')].requestBody.content
+    then:
+      function: contains
+      functionOptions:
+        match: 'application/merge-patch\+json'
+  # Reduce duplication in data structures
+  # TODO... maybe detect similar strings in JSON paths?
+  # Version the API
+  server-version:
+    severity: error
+    description: Server URL must include version in the path (except localhost)
+    given: $.servers.[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: 'localhost|/v[0-9]+$'
+  # Use ISO 8601 for dates
+  iso8601:
+    severity: warn
+    given: $..parameters.[*]
+    then:
+      function: iso8601
+  # Auth?
+  # Resource nouns
+  # DNS & URL friendliness
+  # Resources should have schemas with descriptions
+  # Resource field casing
+  # Don't POST with identifier
+  # Listing should return a list
+  # Listing should include pagintation
+  # Create/update should either repond 201/204 or with a JSON body
+  # Errors must include a `detail` field
+  # Header & parameter casing
+  headers-hyphenated-pascal-case:
+    description: All `HTTP` headers MUST use `Hyphenated-Pascal-Case` notation
+    severity: error
+    given: "$..parameters[?(@.in == 'header')].name"
+    message: "'HTTP' headers MUST follow 'Hyphenated-Pascal-Case' notation"
+    type: style
+    then:
+      function: pattern
+      functionOptions:
+        match: '/^([A-Z][a-z0-9]-)*([A-Z][a-z0-9])+/'
+  parameters-lower-camel-case:
+    severity: error
+    description: All params must use `lowerCamelCase`
+    message: '`{{value}}` must follow `lowerCamelCase` notation'
+    type: style
+    given: "$..parameters[?(@.in == 'query' || @ == 'path')].name"
+    then:
+      function: casing
+      functionOptions:
+        type: camel
+  # Parameter location constraints
+  # Date/time ranges

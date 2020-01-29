@@ -1,0 +1,47 @@
+openapi: '3.0.0'
+info:
+  version: 1.0.0
+  title: API Fixture
+  description: API fixture description
+  license:
+    name: Apache2
+  contact:
+    email: support@example.com
+servers:
+  - url: https://api.example.com/v1
+tags:
+  - name: Test
+    description: Test tag
+paths:
+  /test:
+    patch:
+      summary: Test operation
+      description: Test operation description
+      operationId: test
+      tags:
+        - Test
+      requestBody:
+        description: Body description
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '204':
+          description: Response description
+  /warn:
+    patch:
+      summary: Warn operation
+      description: Test operation description
+      operationId: warn
+      tags:
+        - Test
+      requestBody:
+        description: Body description
+        content:
+          application/yaml:
+            schema:
+              type: object
+      responses:
+        '204':
+          description: Response description

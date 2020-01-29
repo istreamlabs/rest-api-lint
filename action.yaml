@@ -1,0 +1,12 @@
+name: API Lint
+description: Lint OpenAPI specs with Spectral
+author: Daniel G. Taylor <dtaylor@istreamplanet.com>
+inputs:
+  filename:
+    description: Input file to lint
+    default: openapi.yaml
+runs:
+  using: docker
+  image: Dockerfile
+  args:
+    - ${{ inputs.filename }}
