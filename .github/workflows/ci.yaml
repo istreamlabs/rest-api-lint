@@ -1,0 +1,10 @@
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build & Test
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build
+        run: docker build -t rest-api-lint .
