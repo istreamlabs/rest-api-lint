@@ -1,14 +1,16 @@
 FROM node:13-alpine
 
 ARG extra=true
+WORKDIR /action
 
 RUN apk update && \
   apk add bash
 
 COPY . .
 
-RUN npm install && \
+RUN ln -s $(pwd)/entrypoint.js /usr/bin/rest-api-lint && \
+  npm install && \
   npm run build && \
   ${extra}
 
-ENTRYPOINT ["./entrypoint.js"]
+ENTRYPOINT ["rest-api-lint"]
