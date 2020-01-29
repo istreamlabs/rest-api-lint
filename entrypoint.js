@@ -48,13 +48,32 @@ if (process.env.FAIL_ON_WARNINGS) {
 
 const doc = fs.readFileSync(filename, 'utf8');
 
-const spectral = new Spectral();
+const spectral = new Spectral({
+  computeFingerprint: (rule, hash) => {
+    // https://stoplight.io/p/docs/gh/stoplightio/spectral/docs/guides/javascript.md#using-custom-de-duplication-strategy
+    let id = String(rule.code);
+
+    if (rule.path && rule.path.length) {
+      id += JSON.stringify(rule.path);
+    } else if (rule.range) {
+      id += JSON.stringify(rule.range);
+    }
+
+    if (rule.source) id += rule.source;
+
+    // Dedupe based on the error message as well, since some rules can
+    // generate many different messages (e.g. English for blocks of text).
+    id += rule.message;
+
+    return hash(id);
+  }
+});
+
 spectral.registerFormat('oas3', isOpenApiv3);
 spectral
   .loadRuleset(SPECTRAL_CONFIG)
   .then(() => spectral.run(doc, { resolve: { documentUri: filename } }))
   .then(results => {
-    //console.log('here are the results', results);
     let errors = 0;
 
     for (let r of results) {
