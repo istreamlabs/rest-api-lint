@@ -2,7 +2,7 @@ const DATELIKE = /created|started|executed|modified|canceled|stopped|deleted|dat
 
 // ISO8601 ensures parameters that look like they might hold dates are formatted
 // correctly according to ISO 8601 (e.g. `2020-01-01T12:00:00Z`)
-module.exports = targetValue => {
+module.exports = (targetValue, options, paths) => {
   const errors = [];
 
   // No parameter should end with a time zone in the name.
@@ -35,9 +35,11 @@ module.exports = targetValue => {
         message: `${targetValue.name} should have a schema`
       });
     } else {
+      let p = paths.given.concat(['schema']);
       if (targetValue.schema.type && targetValue.schema.type !== 'string') {
         errors.push({
-          message: `${targetValue.name} should be a string if it is a date/time`
+          message: `${targetValue.name} should be a string if it is a date/time`,
+          path: targetValue.schema.type ? p.concat(['type']) : p
         });
       }
 
@@ -46,7 +48,8 @@ module.exports = targetValue => {
         targetValue.schema.format != 'date-time'
       ) {
         errors.push({
-          message: `${targetValue.name} should have a string format of 'date' or 'date-time'`
+          message: `${targetValue.name} should have a string format of 'date' or 'date-time'`,
+          path: p
         });
       }
     }
