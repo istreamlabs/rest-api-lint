@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: API Lint
-        uses: istreamlabs/rest-api-lint@v1
+        uses: istreamlabs/rest-api-lint@master
         with:
           filename: path/to/openapi.yaml
 ```
