@@ -1,0 +1,4 @@
+extends:
+  - ../../isp-rules.yaml
+rules:
+  iso8601: false
