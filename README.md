@@ -44,6 +44,22 @@ $ docker run -it -v $(pwd):/tmp rest-api-lint:latest /tmp/my-openapi.yaml
 
 The command will return a `0` on success and a `1` if any errors are found. Warnings do not trigger a failure.
 
+### Exceptions & Overrides
+
+When [stoplightio/spectral#747](https://github.com/stoplightio/spectral/issues/747) gets fixed you will be able to provide individual exceptions on a case-by-case basis.
+
+To disable an entire rule, e.g. to support a legacy API, you can provide your own `.spectral.yaml` file in the root of your repo which sets some rules to `false`. Note that this disables the rule for the _entire file_:
+
+```yaml
+rules:
+  iso8601: false
+  server-version: false
+```
+
+It's also possible to set it to `warn`
+
+The `extends` field is automatically added (or appended to) by the linter script to inject the iSP ruleset into your config.
+
 ## License
 
 Copyright © 2020 iStreamPlanet Co., LLC

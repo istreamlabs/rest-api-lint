@@ -7,7 +7,7 @@ const { Spectral, isOpenApiv3 } = require('@stoplight/spectral');
 const { stylish } = require('@stoplight/spectral/dist/formatters/stylish');
 
 const SPECTRAL_CONFIG = '.spectral.yaml';
-const ISP_RULES_PREFIX = process.env.ISP_RULES_PREFIX || '';
+const ISP_RULES_PREFIX = process.env.ISP_RULES_PREFIX || './';
 
 // Mapping of Spectral severity to GitHub Actions message level
 const SEV_MAP = ['error', 'warning', 'debug', 'debug'];

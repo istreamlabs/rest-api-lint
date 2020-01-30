@@ -31,3 +31,24 @@ describe('Linting fixture files', () => {
     });
   });
 });
+
+describe('Disable rules test', () => {
+  it('should pass when rule is disabled', () => {
+    const cwd = process.cwd();
+
+    process.env.ISP_RULES_PREFIX = '../../';
+    process.chdir('fixtures/disable');
+
+    try {
+      const out = execSync('../../entrypoint.js', {
+        stdio: 'pipe',
+        encoding: 'utf8'
+      });
+    } catch (err) {
+      throw new Error(err.stdout);
+    } finally {
+      process.env.ISP_RULES_PREFIX = '';
+      process.chdir(cwd);
+    }
+  });
+});
