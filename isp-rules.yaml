@@ -64,7 +64,16 @@ rules:
     then:
       function: noun
   # DNS & URL friendliness
-
+  dns-friendly:
+    severity: error
+    given: $..parameters[?(@.name.match(/^id[ -_A-Z]|[ -_]id$|[a-z0-9]Id$/))]
+    message: Identifier parameter missing DNS-friendly pattern
+    then:
+      # Currently this just checks for existence of any pattern, but it should
+      # both catch small mistakes and not be too limited if params have
+      # additional constraints (e.g. not limited to a specific pattern).
+      field: schema.pattern
+      function: truthy
   # Resources should have schemas with descriptions
   # Resource field casing
   # Don't POST with identifier
