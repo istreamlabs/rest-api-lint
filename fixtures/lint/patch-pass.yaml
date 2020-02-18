@@ -13,7 +13,7 @@ tags:
   - name: Test
     description: Test tag
 paths:
-  /test:
+  /tests:
     patch:
       summary: Test operation
       description: Test operation description

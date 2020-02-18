@@ -13,21 +13,23 @@ tags:
   - name: Test
     description: Test tag
 paths:
-  /tests:
+  /get_foo:
     get:
       summary: Test operation
       description: Test operation description
-      operationId: test
+      operationId: test-foo
       tags:
         - Test
-      parameters:
-        - name: started
-          in: query
-          description: Some query param
-          schema:
-            type: string
-            format: date-time
-            example: 2020-01-01T12:00:00Z
+      responses:
+        '204':
+          description: Response description
+  /bar:
+    get:
+      summary: Test operation
+      description: Test operation description
+      operationId: test-bar
+      tags:
+        - Test
       responses:
         '204':
           description: Response description

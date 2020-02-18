@@ -13,7 +13,7 @@ tags:
   - name: Test
     description: Test tag
 paths:
-  /test:
+  /tests:
     patch:
       summary: Test operation
       description: Test operation description
@@ -29,7 +29,7 @@ paths:
       responses:
         '204':
           description: Response description
-  /warn:
+  /warnings:
     patch:
       summary: Warn operation
       description: Test operation description

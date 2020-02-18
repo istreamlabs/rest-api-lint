@@ -6,6 +6,7 @@ functions:
   - contains
   - english
   - iso8601
+  - noun
 rules:
   # English recommendations for description fields
   english:
@@ -55,9 +56,15 @@ rules:
     given: $..parameters.[*]
     then:
       function: iso8601
-  # Auth?
-  # Resource nouns
+  # Auth? TODO
+  # Resource plural nouns
+  resource-nouns:
+    severity: error
+    given: $.paths.*~
+    then:
+      function: noun
   # DNS & URL friendliness
+
   # Resources should have schemas with descriptions
   # Resource field casing
   # Don't POST with identifier

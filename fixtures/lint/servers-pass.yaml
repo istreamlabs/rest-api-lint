@@ -14,7 +14,7 @@ tags:
   - name: Test
     description: Test tag
 paths:
-  /test:
+  /tests:
     get:
       summary: Test operation
       description: Test operation description
