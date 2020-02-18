@@ -76,6 +76,14 @@ rules:
       function: truthy
   # Resources should have schemas with descriptions
   # Resource field casing
+  properties-lower-camel-case:
+    severity: error
+    type: style
+    given: $..properties.*~
+    then:
+      function: casing
+      functionOptions:
+        type: camel
   # Don't POST with identifier
   # Listing should return a list
   # Listing should include pagintation
