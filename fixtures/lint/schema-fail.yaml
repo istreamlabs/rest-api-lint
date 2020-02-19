@@ -14,12 +14,17 @@ tags:
     description: Test tag
 paths:
   /tests:
-    get:
+    put:
       summary: Test operation
       description: Test operation description
       operationId: test
       tags:
         - Test
+      requestBody:
+        description: Body description
+        content:
+          application/json:
+            example: true
       responses:
         '200':
           description: Response description
@@ -30,17 +35,3 @@ paths:
                 properties:
                   foo:
                     type: string
-                    description: foo field
-              example:
-                value:
-                  foo: bar
-            application/yaml:
-              schema:
-                type: object
-                properties:
-                  foo:
-                    type: string
-                    description: foo field
-              example:
-                value:
-                  foo: bar

@@ -75,6 +75,18 @@ rules:
       field: schema.pattern
       function: truthy
   # Resources should have schemas with descriptions
+  resource-schemas:
+    severity: error
+    given: $..['application/json']
+    then:
+      field: schema
+      function: truthy
+  schema-descriptions:
+    severity: warn
+    given: $..properties.*
+    then:
+      field: description
+      function: truthy
   # Resource field casing
   properties-lower-camel-case:
     severity: error

@@ -30,3 +30,4 @@ paths:
                 properties:
                   fooBar:
                     type: string
+                    description: fooBar property

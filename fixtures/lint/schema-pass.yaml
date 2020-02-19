@@ -14,20 +14,18 @@ tags:
     description: Test tag
 paths:
   /tests:
-    get:
+    put:
       summary: Test operation
       description: Test operation description
       operationId: test
       tags:
         - Test
+      requestBody:
+        description: Body description
+        content:
+          application/json:
+            schema:
+              type: object
       responses:
-        '200':
+        '204':
           description: Response description
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  foo_bar:
-                    type: string
-                    description: foo_bar property
