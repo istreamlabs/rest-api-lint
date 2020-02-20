@@ -138,6 +138,17 @@ rules:
       field: '204'
       function: truthy
   # Errors must include a `detail` field
+  error-detail:
+    severity: error
+    message: Errors must be JSON and include a "detail" field
+    given: $..responses.[?(@property.toString().startsWith("4") || @property.toString() === "500")]
+    then:
+      - field: content
+        function: truthy
+      - field: content.application/json.schema
+        function: truthy
+      - field: content.application/json.schema.properties.detail
+        function: truthy
   # Header & parameter casing
   headers-hyphenated-pascal-case:
     description: All `HTTP` headers MUST use `Hyphenated-Pascal-Case` notation
