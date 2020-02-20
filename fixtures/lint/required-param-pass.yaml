@@ -27,6 +27,12 @@ paths:
           description: Some query param
           schema:
             type: string
+        - name: Authorization
+          in: header
+          required: true
+          description: Auth param
+          schema:
+            type: string
       responses:
         '204':
           description: Response description
