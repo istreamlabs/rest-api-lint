@@ -100,6 +100,27 @@ rules:
   # Listing should return a list
   # Listing should include pagintation
   # Create/update should either repond 201/204 or with a JSON body
+  disallow-body:
+    severity: error
+    message: 201/204 response should have no body. Use e.g. 200 otherwise.
+    given: $..responses.[?(@property === '201' || @property === '204')]
+    then:
+      field: content
+      function: falsy
+  require-body:
+    severity: error
+    message: 200 response must have a body. Use 201/204 otherwise.
+    given: $..responses.200
+    then:
+      field: content
+      function: truthy
+  delete-response:
+    severity: error
+    message: Delete should return an HTTP 204
+    given: $.paths.*[?(@property === 'delete')].responses
+    then:
+      field: '204'
+      function: truthy
   # Errors must include a `detail` field
   # Header & parameter casing
   headers-hyphenated-pascal-case:
