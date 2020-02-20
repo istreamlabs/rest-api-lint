@@ -160,7 +160,7 @@ rules:
       function: pattern
       functionOptions:
         match: '/^([A-Z][a-z0-9]-)*([A-Z][a-z0-9])+/'
-  parameters-lower-camel-case:
+  params-lower-camel-case:
     severity: error
     description: All params must use `lowerCamelCase`
     message: '`{{value}}` must follow `lowerCamelCase` notation'
@@ -171,4 +171,12 @@ rules:
       functionOptions:
         type: camel
   # Parameter location constraints
+  params-location:
+    severity: error
+    message: Required parameters must be in the URL path
+    given: $..parameters[?(@.in != 'path')]
+    then:
+      field: required
+      function: falsy
   # Date/time ranges
+  # TODO

@@ -1,0 +1,32 @@
+openapi: '3.0.0'
+info:
+  version: 1.0.0
+  title: API Fixture
+  description: API fixture description
+  license:
+    name: Apache2
+  contact:
+    email: support@example.com
+servers:
+  - url: https://api.example.com/v1
+tags:
+  - name: Test
+    description: Test tag
+paths:
+  /tests/{someParam}:
+    get:
+      summary: Test operation
+      description: Test operation description
+      operationId: test
+      tags:
+        - Test
+      parameters:
+        - name: someParam
+          in: path
+          required: true
+          description: Some query param
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Response description
