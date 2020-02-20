@@ -26,19 +26,4 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    foo:
-                      type: string
-                      description: foo field
-            application/yaml:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    foo:
-                      type: string
-                      description: foo field
+                type: object

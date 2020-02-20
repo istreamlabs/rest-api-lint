@@ -27,18 +27,25 @@ paths:
             application/json:
               schema:
                 type: array
-                items:
-                  type: object
-                  properties:
-                    foo:
-                      type: string
-                      description: foo field
-            application/yaml:
+  /tests/{testId}:
+    get:
+      summary: Test operation
+      description: Test operation description
+      operationId: test-detail
+      tags:
+        - Test
+      parameters:
+        - name: testId
+          in: path
+          required: true
+          description: Test ID
+          schema:
+            type: string
+            pattern: /[a-z]+/
+      responses:
+        '200':
+          description: Response description
+          content:
+            application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    foo:
-                      type: string
-                      description: foo field
+                type: object

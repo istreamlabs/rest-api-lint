@@ -105,6 +105,16 @@ rules:
       field: post
       function: falsy
   # Listing should return a list & include pagination
+  listing-returns-list:
+    severity: warn
+    message: 'Type "{{value}}" should be "array" when returning a list of resources'
+    given: $.paths.[?(!@property.toString().includes("}"))].get.responses.[?(@property.toString().startsWith("2"))].content.*.schema
+    then:
+      field: type
+      function: enumeration
+      functionOptions:
+        values:
+          - array
   # Create/update should either repond 201/204 or with a JSON body
   disallow-body:
     severity: error
