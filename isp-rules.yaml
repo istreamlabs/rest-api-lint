@@ -67,7 +67,7 @@ rules:
   dns-friendly:
     severity: error
     given: $..parameters[?((@.name || '').match(/^id[ -_A-Z]|[ -_]id$|[a-z0-9]Id$/))]
-    message: Identifier parameter missing DNS-friendly pattern
+    message: Identifier parameter missing DNS-friendly pattern (e.g. ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$)
     then:
       # Currently this just checks for existence of any pattern, but it should
       # both catch small mistakes and not be too limited if params have
