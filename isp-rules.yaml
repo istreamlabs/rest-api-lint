@@ -97,8 +97,14 @@ rules:
       functionOptions:
         type: camel
   # Don't POST with identifier
-  # Listing should return a list
-  # Listing should include pagintation
+  post-with-id:
+    severity: error
+    message: Use PUT/PATCH rather than POSTing with a user-supplied identifier
+    given: $.paths.[?(@property.toString().endsWith("}"))]
+    then:
+      field: post
+      function: falsy
+  # Listing should return a list & include pagination
   # Create/update should either repond 201/204 or with a JSON body
   disallow-body:
     severity: error
