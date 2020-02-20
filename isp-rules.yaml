@@ -11,14 +11,12 @@ rules:
   # English recommendations for description fields
   english:
     severity: warn
-    message: '{{error}}'
     given: $..description
     then:
       function: english
   # Use JSON as much as possible
   json-responses:
     severity: error
-    description: Responses must be JSON
     message: '{{description}}: {{error}}'
     given: $..responses.[?(@property == '200' || @ == '201' || @ == '202' || @ == '400' || @ == '401' || @ == '403' || @ == '404' || @ == '422' || @ == '500')].content
     then:
@@ -66,8 +64,8 @@ rules:
   # DNS & URL friendliness
   dns-friendly:
     severity: error
+    description: Identifier parameter missing DNS-friendly pattern, e.g. ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
     given: $..parameters[?((@.name || '').match(/^id[ -_A-Z]|[ -_]id$|[a-z0-9]Id$/))]
-    message: Identifier parameter missing DNS-friendly pattern (e.g. ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$)
     then:
       # Currently this just checks for existence of any pattern, but it should
       # both catch small mistakes and not be too limited if params have
@@ -90,7 +88,6 @@ rules:
   # Resource field casing
   properties-lower-camel-case:
     severity: error
-    type: style
     given: $..properties.*~
     then:
       function: casing
@@ -99,7 +96,7 @@ rules:
   # Don't POST with identifier
   post-with-id:
     severity: error
-    message: Use PUT/PATCH rather than POSTing with a user-supplied identifier
+    description: Use PUT/PATCH rather than POSTing with a user-supplied identifier
     given: $.paths.[?(@property.toString().endsWith("}"))]
     then:
       field: post
@@ -107,7 +104,7 @@ rules:
   # Listing should return a list & include pagination
   listing-returns-list:
     severity: warn
-    message: 'Type "{{value}}" should be "array" when returning a list of resources'
+    message: Type "{{value}}" should be "array" when returning a list of resources
     given: $.paths.[?(!@property.toString().includes("}"))].get.responses.[?(@property.toString().startsWith("2"))].content.*.schema
     then:
       field: type
@@ -118,21 +115,21 @@ rules:
   # Create/update should either repond 201/204 or with a JSON body
   disallow-body:
     severity: error
-    message: 201/204 response should have no body. Use e.g. 200 otherwise.
+    description: 201/204 response should have no body. Use e.g. 200 otherwise.
     given: $..responses.[?(@property === '201' || @property === '204')]
     then:
       field: content
       function: falsy
   require-body:
     severity: error
-    message: 200 response must have a body. Use 201/204 otherwise.
+    description: 200 response must have a body. Use 201/204 otherwise.
     given: $..responses.200
     then:
       field: content
       function: truthy
   delete-response:
     severity: error
-    message: Delete should return an HTTP 204
+    description: Delete should return an HTTP 204
     given: $.paths.*[?(@property === 'delete')].responses
     then:
       field: '204'
@@ -140,7 +137,7 @@ rules:
   # Errors must include a `detail` field
   error-detail:
     severity: error
-    message: Errors must be JSON and include a "detail" field
+    description: Errors must be JSON and include a "detail" field
     given: $..responses.[?(@property.toString().startsWith("4") || @property.toString() === "500")]
     then:
       - field: content
@@ -151,20 +148,16 @@ rules:
         function: truthy
   # Header & parameter casing
   headers-hyphenated-pascal-case:
-    description: All `HTTP` headers MUST use `Hyphenated-Pascal-Case` notation
     severity: error
     given: "$..parameters[?(@.in == 'header')].name"
-    message: "'HTTP' headers MUST follow 'Hyphenated-Pascal-Case' notation"
-    type: style
+    description: "'HTTP' headers MUST follow 'Hyphenated-Pascal-Case' notation"
     then:
       function: pattern
       functionOptions:
         match: '/^([A-Z][a-z0-9]-)*([A-Z][a-z0-9])+/'
   params-lower-camel-case:
     severity: error
-    description: All params must use `lowerCamelCase`
     message: '`{{value}}` must follow `lowerCamelCase` notation'
-    type: style
     given: "$..parameters[?(@.in == 'query' || @ == 'path')].name"
     then:
       function: casing
@@ -173,7 +166,7 @@ rules:
   # Parameter location constraints
   params-location:
     severity: error
-    message: Required parameters must be in the URL path
+    description: Required parameters must be in the URL path
     given: $..parameters[?(@.in != 'path')]
     then:
       field: required
