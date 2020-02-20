@@ -1,6 +1,10 @@
 # REST API Linting Action
 
+[![.github/workflows/ci.yaml](https://github.com/istreamlabs/rest-api-lint/workflows/.github/workflows/ci.yaml/badge.svg)](https://github.com/istreamlabs/rest-api-lint/actions?query=workflow%3A.github%2Fworkflows%2Fci.yaml) [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/istreamlabs/rest-api-lint)](https://hub.docker.com/r/istreamlabs/rest-api-lint) [![Docker Pulls](https://img.shields.io/docker/pulls/istreamlabs/rest-api-lint)](https://hub.docker.com/r/istreamlabs/rest-api-lint)
+
 A Docker image with opinionated REST API linting for iStreamPlanet. Supports GitHub Actions.
+
+This is built using [Stoplight's Spectral](https://stoplight.io/open-source/spectral). The custom ruleset is defined in [isp-rules.yaml](https://github.com/istreamlabs/rest-api-lint/blob/master/isp-rules.yaml), where you can find the descriptions and rule names (if you want to disable individual rules).
 
 ## Usage
 
@@ -34,12 +38,17 @@ The path you pass should be relative to the checkout directory, which is automat
 
 While similar to the above, you will need to do an extra step when using Docker directly. You must ensure that the working directory gets mounted properly into the container.
 
+You can either use the published [`istreamlabs/rest-api-lint`](https://hub.docker.com/r/istreamlabs/rest-api-lint) container or build it yourself locally.
+
 ```sh
 # Create the image.
 $ docker build -t rest-api-lint .
 
 # Mount the current working directory to `/tmp` in the container and run linting.
 $ docker run -it -v $(pwd):/tmp rest-api-lint:latest /tmp/my-openapi.yaml
+
+# If you have a custom `.spectral.yaml` with overrides:
+$ docker run -it -w /workspace -v $(pwd):/workspace rest-api-lint:latest openapi.yaml
 ```
 
 The command will return a `0` on success and a `1` if any errors are found. Warnings do not trigger a failure.
@@ -56,7 +65,7 @@ rules:
   server-version: false
 ```
 
-It's also possible to set it to `warn`
+It's also possible to set it to `warn` or `info`.
 
 The `extends` field is automatically added (or appended to) by the linter script to inject the iSP ruleset into your config.
 
