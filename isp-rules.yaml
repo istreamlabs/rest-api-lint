@@ -112,11 +112,11 @@ rules:
       functionOptions:
         values:
           - array
-  # Create/update should either repond 201/204 or with a JSON body
+  # Create/update should either repond 204 or with a JSON body
   disallow-body:
     severity: error
-    description: 201/204 response should have no body. Use e.g. 200 otherwise.
-    given: $..responses.[?(@property === '201' || @property === '204')]
+    description: 204 response should have no body. Use e.g. 200 otherwise.
+    given: $..responses.204
     then:
       field: content
       function: falsy
