@@ -13,7 +13,7 @@ tags:
   - name: Test
     description: Test tag
 paths:
-  /tests/{testId}/foo:
+  /tests/{testId}/{region}:
     post:
       summary: Test operation
       description: Test operation description
@@ -28,6 +28,12 @@ paths:
           schema:
             type: string
             pattern: /[a-z]+/
+        - name: region
+          required: true
+          in: path
+          description: region param
+          schema:
+            type: string
       responses:
         '201':
           description: Response description
