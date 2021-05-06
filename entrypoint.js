@@ -4,7 +4,7 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 
 const { Spectral, isOpenApiv3 } = require('@stoplight/spectral');
-// const { stylish } = require('@stoplight/spectral/dist/formatters/stylish');
+const { stylish } = require('@stoplight/spectral/dist/cli/formatters/stylish');
 
 const SPECTRAL_CONFIG = '.spectral.yaml';
 const ISP_RULES_PREFIX = process.env.ISP_RULES_PREFIX || './';
@@ -91,8 +91,7 @@ spectral
     }
 
     // Use the nice default formatter to display results.
-    // console.log(stylish(results));
-    console.log(results);
+    console.log(stylish(results));
 
     // Set the exit code (0 for success, 1 for failure).
     process.exit(errors > 0);
