@@ -21,7 +21,7 @@ paths:
       tags:
         - Test
       parameters:
-        - name: started_utcs
+        - name: started_utc
           in: query
           description: Some query param
           schema:
