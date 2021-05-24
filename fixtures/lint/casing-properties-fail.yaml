@@ -28,6 +28,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  foo_bar:
+                  fooBar:
                     type: string
                     description: fooBar property
