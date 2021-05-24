@@ -86,13 +86,13 @@ rules:
       field: description
       function: truthy
   # Resource field casing
-  properties-lower-camel-case:
+  properties-lower-snake-case:
     severity: error
     given: $..properties.*~
     then:
       function: casing
       functionOptions:
-        type: camel
+        type: snake
   # Don't POST with identifier
   post-with-id:
     severity: error
@@ -155,14 +155,14 @@ rules:
       function: pattern
       functionOptions:
         match: '/^([A-Z][a-z0-9]-)*([A-Z][a-z0-9])+/'
-  params-lower-camel-case:
+  params-lower-snake-case:
     severity: error
-    message: '`{{value}}` must follow `lowerCamelCase` notation'
+    message: '`{{value}}` must follow `snake` notation'
     given: "$..parameters[?(@.in == 'query' || @ == 'path')].name"
     then:
       function: casing
       functionOptions:
-        type: camel
+        type: snake
   # Parameter location constraints
   params-location:
     severity: error
