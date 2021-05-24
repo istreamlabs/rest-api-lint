@@ -1,4 +1,4 @@
-openapi: '3.0.0'
+openapi: "3.0.0"
 info:
   version: 1.0.0
   title: API Fixture
@@ -21,7 +21,7 @@ paths:
       tags:
         - Test
       responses:
-        '200':
+        "200":
           description: Response description
           content:
             application/json:
@@ -30,6 +30,6 @@ paths:
                 items:
                   type: object
                   properties:
-                    fooBar:
+                    foo_bar:
                       type: string
-                      description: fooBar property
+                      description: foo_bar property
