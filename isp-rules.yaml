@@ -1,5 +1,5 @@
 formats:
-  - 'oas3'
+  - "oas3"
 extends: spectral:oas
 functionsDir: isp-functions
 functions:
@@ -17,15 +17,15 @@ rules:
   # Use JSON as much as possible
   json-responses:
     severity: error
-    message: '{{description}}: {{error}}'
+    message: "{{description}}: {{error}}"
     given: $..responses.[?(@property == '200' || @ == '201' || @ == '202' || @ == '400' || @ == '401' || @ == '403' || @ == '404' || @ == '422' || @ == '500')].content
     then:
       function: contains
       functionOptions:
-        match: 'json'
+        match: "json"
   patch-request-content-type:
     severity: error
-    description: '`PATCH` requests cannot use `application/json`'
+    description: "`PATCH` requests cannot use `application/json`"
     given: $.paths.*.[?(@property == 'patch')].requestBody.content[?(@property == 'application/json')]^
     then:
       function: falsy
@@ -47,7 +47,7 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: 'localhost|/v[0-9]+$'
+        match: "localhost|/v[0-9]+$"
   # Use ISO 8601 for dates
   iso8601:
     severity: warn
@@ -132,19 +132,19 @@ rules:
     description: Delete should return an HTTP 204
     given: $.paths.*[?(@property === 'delete')].responses
     then:
-      field: '204'
+      field: "204"
       function: truthy
   # Errors must include a `detail` field
   error-detail:
     severity: error
-    description: Errors must be JSON and include a "detail" field
+    description: Errors must be problem+JSON and include a "detail" field
     given: $..responses.[?(@property.toString().startsWith("4") || @property.toString() === "500")]
     then:
       - field: content
         function: truthy
-      - field: content.application/json.schema
+      - field: content.application/problem+json.schema
         function: truthy
-      - field: content.application/json.schema.properties.detail
+      - field: content.application/problem+json.schema.properties.detail
         function: truthy
   # Header & parameter casing
   headers-hyphenated-pascal-case:
@@ -154,10 +154,10 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: '/^([A-Z][a-z0-9]-)*([A-Z][a-z0-9])+/'
+        match: "/^([A-Z][a-z0-9]-)*([A-Z][a-z0-9])+/"
   params-lower-camel-case:
     severity: error
-    message: '`{{value}}` must follow `lowerCamelCase` notation'
+    message: "`{{value}}` must follow `lowerCamelCase` notation"
     given: "$..parameters[?(@.in == 'query' || @ == 'path')].name"
     then:
       function: casing
