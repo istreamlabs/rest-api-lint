@@ -59,6 +59,10 @@ module.exports = targetValue => {
   for (const value of pieces.slice(0, -1)) {
     if (value.startsWith('{')) continue;
 
+    // our api version is in the url as a resource
+    // this does not need to be plural
+    if (value.match(/v[0-9]+/)) continue;
+
     // Ensure words are plural if later paths exist.
     const plural = inflection.pluralize(value);
     if (value !== plural) {
