@@ -1,4 +1,4 @@
-openapi: '3.0.0'
+openapi: "3.0.0"
 info:
   version: 1.0.0
   title: API Fixture
@@ -21,11 +21,11 @@ paths:
       tags:
         - Test
       parameters:
-        - name: someQueryParam
+        - name: some_query_param
           in: query
           description: Some query param
           schema:
             type: string
       responses:
-        '204':
+        "204":
           description: Response description

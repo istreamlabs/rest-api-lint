@@ -13,19 +13,13 @@ tags:
   - name: Test
     description: Test tag
 paths:
-  /tests:
+  /v2/tests:
     get:
       summary: Test operation
       description: Test operation description
       operationId: test
       tags:
         - Test
-      parameters:
-        - name: someQueryParam
-          in: query
-          description: Some query param
-          schema:
-            type: string
       responses:
         "204":
           description: Response description
