@@ -1,4 +1,4 @@
-openapi: '3.0.0'
+openapi: "3.0.0"
 info:
   version: 1.0.0
   title: API Fixture
@@ -21,12 +21,12 @@ paths:
       tags:
         - Test
       responses:
-        '204':
+        "204":
           description: Response description
-        '401':
+        "401":
           description: Response description
           content:
-            application/json:
+            application/problem+json:
               schema:
                 type: object
                 properties:
