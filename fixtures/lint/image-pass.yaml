@@ -27,12 +27,3 @@ paths:
             image/jpeg:
               schema:
                 type: string
-            application/yaml:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    foo:
-                      type: string
-                      description: foo field
