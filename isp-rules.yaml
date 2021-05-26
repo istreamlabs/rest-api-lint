@@ -120,13 +120,16 @@ rules:
     then:
       field: content
       function: falsy
-  require-body:
-    severity: error
-    description: 200 response must have a body. Use 201/204 otherwise.
-    given: $..responses.200
-    then:
-      field: content
-      function: truthy
+  # requiring a body fails for image/json and cannot because because of a spectral
+  # bug that prevents image/jpeg with type:"string" from parsing.
+  # TODO: Readd this if spectral ever fixes that bug.
+  # require-body:
+  #   severity: error
+  #   description: 200 response must have a body. Use 201/204 otherwise.
+  #   given: $..responses.200
+  #   then:
+  #     field: content
+  #     function: truthy
   delete-response:
     severity: error
     description: Delete should return an HTTP 204
@@ -154,10 +157,10 @@ rules:
     then:
       function: pattern
       functionOptions:
-        match: '/^([A-Z][a-z0-9]-)*([A-Z][a-z0-9])+/'
+        match: "/^([A-Z][a-z0-9]-)*([A-Z][a-z0-9])+/"
   params-lower-snake-case:
     severity: error
-    message: '`{{value}}` must follow `snake` notation'
+    message: "`{{value}}` must follow `snake` notation"
     given: "$..parameters[?(@.in == 'query' || @ == 'path')].name"
     then:
       function: casing
