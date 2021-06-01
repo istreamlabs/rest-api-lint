@@ -1,19 +1,20 @@
+# TODO: Readd English rules when ChannelProto has a linter that checks comments the same English rules.
 formats:
   - "oas3"
 extends: spectral:oas
 functionsDir: isp-functions
 functions:
   - contains
-  - english
+  # - english
   - iso8601
   - noun
 rules:
   # English recommendations for description fields
-  english:
-    severity: warn
-    given: $..description
-    then:
-      function: english
+  # english:
+  #   severity: warn
+  #   given: $..description
+  #   then:
+  #     function: english
   # Use JSON as much as possible
   json-responses:
     severity: error
