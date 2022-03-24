@@ -88,7 +88,7 @@ rules:
   # Resource field casing
   properties-lower-snake-case:
     severity: error
-    given: $..properties.*~
+    given: $..properties[?(!@property.toString().startsWith("$"))]
     then:
       function: casing
       functionOptions:

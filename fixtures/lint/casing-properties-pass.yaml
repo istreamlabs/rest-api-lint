@@ -30,6 +30,9 @@ paths:
                 items:
                   type: object
                   properties:
+                    $schema:
+                      type: string
+                      description: optional schema describing resource
                     foo_bar:
                       type: string
                       description: foo_bar property
