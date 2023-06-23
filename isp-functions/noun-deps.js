@@ -72,5 +72,5 @@ module.exports = targetValue => {
     }
   }
 
-  return errors.length ? errors : null;
+  return errors;
 };
