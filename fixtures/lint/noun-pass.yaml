@@ -41,3 +41,28 @@ paths:
       responses:
         '204':
           description: Response description
+  /cust/{custId}/product/{productId}:
+    get:
+      summary: Test operation
+      description: Test operation description
+      operationId: test-cust
+      tags:
+        - Test
+      parameters:
+        - name: custId
+          in: path
+          required: true
+          description: some parameter
+          schema:
+            type: string
+            pattern: /[a-z]+/
+        - name: productId
+          in: path
+          required: true
+          description: some parameter
+          schema:
+            type: string
+            pattern: /[a-z]+/
+      responses:
+        '204':
+          description: Response description
