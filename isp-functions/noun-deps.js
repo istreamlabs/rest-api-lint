@@ -29,7 +29,7 @@ module.exports = targetValue => {
   // Split into path pieces ignoring blank/empty ones and params.
   let pieces = targetValue.split('/').filter(i => !!i);
 
-  if ((pieces.length === 1 && pieces[0] === 'search') || pieces[0] === 'me' || pieces[0] === 'cust') {
+  if ((pieces.length === 1 && pieces[0] === 'search') || pieces[0] === 'me' || pieces[0] === 'cust' || pieces.length >= 6 && pieces[4] === 'preview') {
     // Top-level exceptions. Skip.
     return;
   }
