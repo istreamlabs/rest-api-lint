@@ -140,8 +140,9 @@ rules:
   # Errors must include a `detail` field
   error-detail:
     severity: error
-    description: Errors must be problem+JSON and include a "detail" field
-    given: $..responses.[?(@property.toString().startsWith("4") || @property.toString() === "500")]
+    # 429 returns from the API Gateway, so we exclude it
+    description: Errors must be problem+JSON or text/plain and include a "detail" field
+    given: $..responses.[?((@property.toString().startsWith("4") || @property.toString() === "500") && @property.toString() != "429")]
     then:
       - field: content
         function: truthy
