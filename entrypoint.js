@@ -23,7 +23,7 @@ const ISP_RULES_PATH = `${ISP_RULES_PREFIX}isp-rules.yaml`;
 // Make sure Spectral's config is set up properly to point to our custom rules.
 if (fs.existsSync(SPECTRAL_CONFIG)) {
   // Modify existing file.
-  const doc = yaml.safeLoad(fs.readFileSync(SPECTRAL_CONFIG, 'utf8'));
+  const doc = yaml.load(fs.readFileSync(SPECTRAL_CONFIG, 'utf8'));
 
   if (!doc.extends) {
     doc.extends = [];
