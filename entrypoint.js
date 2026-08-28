@@ -94,5 +94,5 @@ spectral
     console.log(stylish(results));
 
     // Set the exit code (0 for success, 1 for failure).
-    process.exit(errors > 0);
+    process.exit(errors > 0 ? 1 : 0);
   });
