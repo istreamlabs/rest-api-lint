@@ -10,6 +10,9 @@
   },
   "author": "Daniel G. Taylor <dtaylor@istreamplanet.com",
   "license": "Apache2",
+  "engines": {
+    "node": ">=24"
+  },
   "dependencies": {
     "@stoplight/spectral": "^5.9.1",
     "browserify": "^16.5.0",
