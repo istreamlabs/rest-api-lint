@@ -33,6 +33,14 @@ module.exports = createRulesetFunction(
     let found = false;
     const re = getRe(options.match);
 
+    if (targetValue == null) {
+      return [
+        {
+          message: `${options.match} not found among ${targetValue}`
+        }
+      ];
+    }
+
     let items = targetValue;
     if (!Array.isArray(items)) {
       items = Object.keys(items);
