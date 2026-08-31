@@ -14,6 +14,10 @@ module.exports = createRulesetFunction(
     options: null
   },
   function iso8601(targetValue, _options, context) {
+    if (!targetValue) {
+      return [];
+    }
+
     const errors = [];
 
     if ((targetValue.name || '').toLowerCase().endsWith('utc')) {

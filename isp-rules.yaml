@@ -51,7 +51,7 @@ rules:
   # Use ISO 8601 for dates
   iso8601:
     severity: warn
-    given: $..parameters.[*]
+    given: $..parameters[?(@ != null)]
     then:
       function: iso8601
   # Auth? TODO
@@ -67,7 +67,7 @@ rules:
     description: Identifier parameter missing DNS-friendly pattern, e.g. ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
     # 'upid_id' is specifically excluded since it is not an internally defined ID. It is the ID part of a UPID
     # which should allow any string value.
-    given: $..parameters[?((@.name || '').toString().match(/^id[ -_A-Z]|[ -_]id$|[a-z0-9]Id$/) && (@.name || '').toString() !== 'upid_id')]
+    given: $..parameters[?(@ != null && (@.name || '').toString().match(/^id[ -_A-Z]|[ -_]id$|[a-z0-9]Id$/) && (@.name || '').toString() !== 'upid_id')]
     then:
       # Currently this just checks for existence of any pattern, but it should
       # both catch small mistakes and not be too limited if params have
@@ -155,7 +155,7 @@ rules:
   # Header & parameter casing
   headers-hyphenated-pascal-case:
     severity: error
-    given: "$..parameters[?(@.in == 'header')].name"
+    given: "$..parameters[?(@ != null && @.in == 'header')].name"
     description: "'HTTP' headers MUST follow 'Hyphenated-Pascal-Case' notation"
     then:
       function: pattern
@@ -164,7 +164,7 @@ rules:
   params-lower-snake-case:
     severity: error
     message: "`{{value}}` must follow `snake` notation"
-    given: "$..parameters[?(@.in == 'query' || @ == 'path')].name"
+    given: "$..parameters[?(@ != null && (@.in == 'query' || @ == 'path'))].name"
     then:
       function: casing
       functionOptions:
@@ -173,7 +173,7 @@ rules:
   params-location:
     severity: error
     description: Required parameters must be in the URL path or header
-    given: $..parameters[?(@.in != 'path' && @.in != 'header')]
+    given: $..parameters[?(@ != null && @.in != 'path' && @.in != 'header')]
     then:
       field: required
       function: falsy
