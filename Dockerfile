@@ -12,7 +12,6 @@ COPY . .
 
 RUN ln -s $(pwd)/entrypoint.js /usr/bin/rest-api-lint && \
   npm install && \
-  npm run build && \
   ${extra}
 
 ENTRYPOINT ["rest-api-lint"]
