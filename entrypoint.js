@@ -16,7 +16,11 @@ if (process.argv.length >= 3) {
 const ISP_RULES_PATH = `${ISP_RULES_PREFIX}isp-rules.yaml`;
 
 if (fs.existsSync(SPECTRAL_CONFIG)) {
-  const doc = yaml.load(fs.readFileSync(SPECTRAL_CONFIG, 'utf8'));
+  let doc = yaml.load(fs.readFileSync(SPECTRAL_CONFIG, 'utf8'));
+
+  if (!doc || typeof doc !== 'object') {
+    doc = {};
+  }
 
   if (!doc.extends) {
     doc.extends = [];
