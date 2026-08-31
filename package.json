@@ -5,7 +5,6 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "build": "browserify -s english -o isp-functions/english.js isp-functions/english-deps.js && browserify -s noun -o isp-functions/noun.js isp-functions/noun-deps.js",
     "test": "mocha --timeout=5000"
   },
   "author": "Daniel G. Taylor <dtaylor@istreamplanet.com",
@@ -14,8 +13,8 @@
     "node": ">=24"
   },
   "dependencies": {
-    "@stoplight/spectral": "^5.9.1",
-    "browserify": "^16.5.0",
+    "@stoplight/spectral-cli": "^6.16.3",
+    "@stoplight/spectral-core": "^1.23.1",
     "inflection": "^1.12.0",
     "js-yaml": "^5.4.0",
     "mocha": "^7.0.1",
