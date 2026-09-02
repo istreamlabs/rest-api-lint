@@ -27,6 +27,8 @@ paths:
             application/json:
               schema:
                 type: array
+                items:
+                  type: object
   /tests/{testId}:
     get:
       summary: Test operation

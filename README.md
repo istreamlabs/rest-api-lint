@@ -72,18 +72,12 @@ The `extends` field is automatically added (or appended to) by the linter script
 ### Local Development
 
 1. Install `node 24` locally.
-2. Run `npm run build` to compile the `isp-functions`.
+2. Run `npm install`.
 3. Run `node ./entrypoint.js <PATH_TO_OPENAPI_SPEC>` to run the linter.
-
-The `build` command may need to be re-run to pick up changes made to some of the `isp-functions`.
 
 #### Tests
 
 ```sh
-# Compile the isp-functions
-npm run build
-
-# Run test
 npm run test
 ```
 
